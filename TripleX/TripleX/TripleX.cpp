@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ctime>
 
 void PrintIntroduction(int Difficulty)
 {
@@ -11,7 +12,7 @@ void PrintIntroduction(int Difficulty)
 
 void PrintLevelPass(int Difficulty)
 {
-	std::cout << "\n\nThe door terminal security increased to level " << Difficulty << " , and the following information appears...\n";
+	std::cout << "\n\nThe door terminal security increased to level " << Difficulty << ", and the following information appears...\n";
 }
 
 bool PlayGame(int Difficulty)
@@ -25,16 +26,16 @@ bool PlayGame(int Difficulty)
 		PrintLevelPass(Difficulty);
 	}
 
-	const int CodeA = 4;
-	const int CodeB = 3;
-	const int CodeC = 2;
+	const int CodeA = rand() % Difficulty + Difficulty;
+	const int CodeB = rand() % Difficulty + Difficulty;
+	const int CodeC = rand() % Difficulty + Difficulty;
 
 	const int CodeSum = CodeA + CodeB + CodeC;
 	const int CodeProduct = CodeA * CodeB * CodeC;
 
 	std::cout << "+ There are 3 numbers in the code";
 	std::cout << "\n+ The codes add up to: " << CodeSum;
-	std::cout << "\n+ The code multiply to give:" << CodeProduct << std::endl;
+	std::cout << "\n+ The codes multiply to give: " << CodeProduct << std::endl;
 
 	// store player's guesses
 	int GuessA, GuessB, GuessC;
@@ -52,27 +53,27 @@ bool PlayGame(int Difficulty)
 	}
 	else
 	{
-		std::cout << "\nYou bled out and died.";
+		std::cout << "\nCareful another invalid code will lock the door permanently...";
 		return false;
 	}
 }
 
 int main()
 {
+	srand(time(NULL));
 	int LevelDifficulty = 1;
 	int const MaxDifficulty = 5;
 
 	while (LevelDifficulty <= MaxDifficulty) // loop the game until all levels are completed
-	{
+	{		
 		bool bLevelComplete = PlayGame(LevelDifficulty);
 		std::cin.clear(); //clears any errors
 		std::cin.ignore(); //discards the buffers
 
 		if (bLevelComplete)
 		{
-			++LevelDifficulty;
-		}
-
+				++LevelDifficulty;
+		}		  
 	}
 	std::cout << "The medbay door unlocked and opened.";
 
